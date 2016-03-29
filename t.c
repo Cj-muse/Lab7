@@ -79,7 +79,9 @@ int scheduler()
    printf("leaving scheduler\n");
 }
 
+int tinth(); // declare timerInteruptHandler as a function 
 int int80h();
+
 int set_vector(u16 vector , u16 handler)
 {
 	 put_word(handler, 0, vector<<2);
@@ -93,6 +95,11 @@ main()
     set_vector(80, int80h);
 
     kfork("/bin/u1");     // P0 kfork() P1
+	 //lock();
+	 set_vector(8, tinth); // install address of tinth() to vector 8 
+	 timer_init();
+
+
 
     while(1){
       printf("P0 running\n\r");
