@@ -13,7 +13,7 @@ main()
        segment = (pid+1)*0x1000;
        printf("==============================================\n");
        printf("I am proc %din U mode: segment=%x\n", pid, segment);
-       show_menu();
+		 show_menu();
        printf("Command ? ");
        gets(name);
        if (name[0]==0)
