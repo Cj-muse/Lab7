@@ -27,7 +27,7 @@ int kcinth()
    c = get_word(segment, offset + 2*PC);
    d = get_word(segment, offset + 2*PD);
 		
- 	/*printf("interupthandler a = %d\n", a);
+	/*printf("interupthandler a = %d\n", a);
 	printf("b = %d\n",     b);
 	printf("string: %s\n", c);
 	printf("n = %d\n",     d);*/

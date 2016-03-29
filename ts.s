@@ -35,8 +35,8 @@ start:	mov  ax,cs
 	mov  sp,#_proc
 	add  sp,_procSize      ! set stack pointer to high end of PROC[0] 
 
-!       mov     ax,#0x0003     ! these will start in MONO display mode
-!       int     #0x10          ! needed by vid driver later
+   mov     ax,#0x0003     ! these will start in MONO display mode
+   int     #0x10          ! needed by vid driver later
 		
 	call _main
 
@@ -93,7 +93,7 @@ INK =   8
           push cs
           pop  ds
 
-	  mov bx,_running   	! ready to access proc
+	  		 mov bx,_running   	! ready to access proc
           inc INK[bx]
           cmp INK[bx],#1
           jg   ?1

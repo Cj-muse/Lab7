@@ -1,14 +1,14 @@
 // ucode.c file
-char *cmd[]={"getpid", "ps", "chname", "kmode", "switch", "wait", "exit",
-             "fork", "exec", "pipe", "pfd", "read", "write", "close", 0};
+char *cmd[]={"getpid", "ps", "chname", "kmode", "switch", "wait", "exit", 
+	"fork", "exec", "pipe", "pfd", "read", "write", "close", "putc", 0};
 
 int show_menu()
 {
    printf("******************** Menu ***************************\n");
    printf("*  ps  chname  kmode  switch  wait  exit  fork  exec *\n");
           //   1     2      3       4      5     6    7     8
-   printf("*  pipe  pfd   read   write   close                 *\n");
-	  //   9     10    11      12     13
+   printf("*  pipe  pfd   read   write   close   putc           *\n");
+	  	  //   9     10    11      12     13      14
    printf("*****************************************************\n");
 }
 
@@ -25,6 +25,12 @@ int find_cmd(name) char *name;
    return(-1);
 }
 
+int putc(char c)
+{
+	//char c;
+	//printf("enter a character\n");
+	syscall(91,c,0,0);
+}
 
 int getpid()
 {
@@ -114,34 +120,6 @@ int pipe()
    syscall(30, pd, 0, 0);
    printf("proc %d created a pipe with fd = %d %d\n", getpid(), pd[0], pd[1]);
 
-   //syscall(34,0,0,0); //pfd
-
-   //fork child to share pipe
-   /*printf("now attempting to fork child to share pipe\n");
-   getc();
-   child = syscall(7,0,0,0);
-
-   printf("kfork returned: %d\n", child);
-*/
-   //syscall(34,0,0,0); //pfd
-   /*if (child)
-   {
-     printf("parent %d return form fork, child=%d\n", getpid(), child);
-     // parent writes to pipe close read oft pd[0]
-     close_pipe();
-     //now parent can write to pipe
-     //printf("%s\n", );
-     write_pipe();
-   }
-   else
-   {
-     printf("child %d return from fork, child=%d\n", getpid(), child);
-     // child reads from pipe close write pd[1]
-     close_pipe();
-     //now child can read from pipe
-     read_pipe();
-   }*/
-   //syscall(34,0,0,0); //pfd
 }
 
 int pfd()

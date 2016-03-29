@@ -93,12 +93,17 @@ main()
     printf("MTX starts in main()\n\r");
     init();      // initialize and create P0 as running
     set_vector(80, int80h);
+	
 
     kfork("/bin/u1");     // P0 kfork() P1
-	 //lock();
-	 set_vector(8, tinth); // install address of tinth() to vector 8 
-	 timer_init();
-
+	//kfork("/bin/u1");     // P0 kfork() P2
+	//kfork("/bin/u1");     // P0 kfork() P3
+	//kfork("/bin/u1");     // P0 kfork() P4	
+	//lock();
+	set_vector(8, tinth); // install address of tinth() to vector 8 
+	timer_init();
+	vid_init();
+	//ktest();
 
 
     while(1){

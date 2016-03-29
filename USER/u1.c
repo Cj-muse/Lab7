@@ -37,6 +37,8 @@ main()
        case 11: read_pipe(); break;
        case 12: write_pipe(); break;
        case 13: close_pipe(); break;
+		
+	   case 14: putc(); break;
 
            default: invalid(name); break;
        }
