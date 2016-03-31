@@ -41,12 +41,10 @@ int sleep()
 	gets(s);
 	sscanf(s, "%d", &t);
 	printf("going to sleep for %d seconds\n", t);
-	printf("Sleep in Ucode not implemented\n");
-	//get current time and add t to it
-	//totaltime = syscall(34,0,0,0);
+   syscall(36,t,0,0);
 	
 	//call kernal funtion here
-	//ksleep(totaltime + t);
+	syscall(37, getpid(), 0, 0);
 }
 
 int getpid()

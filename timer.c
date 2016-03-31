@@ -46,6 +46,30 @@ int getTime()
 	return totalTime;
 }
 
+int setSleepTime(int t)
+{
+   running->sleeptime = t;
+}
+
+int tickSleepingProcs()
+{
+   int i =0;
+   PROC *p;
+   
+   for (i=0; i < NPROC; i++)
+   {
+      p = &proc[i];
+      if(p->status == SLEEP)
+      {
+         p->sleeptime--;
+         if(p->sleeptime == 0)
+         {
+            kwakeup(p->pid);
+         }
+      }
+   }
+}
+
 /*===================================================================*
  *		    timer interrupt handler       		     *
  *===================================================================*/
@@ -57,11 +81,13 @@ int thandler()
   //tick %= 1;
 	
   if (tick == 0){                      // at each second
-      //printf("1 second timer interrupt in ");
-      //running->inkmode > 1 ? putc('K') : putc('U');
-      //printf("mode\n");
-		
-	
+
+		if (running->runtime > 0)   
+		{
+			running->runtime--;
+		}
+		tickSleepingProcs();    // tick a second off each sleeping proc
+
 		totalTime++;
 		sec++;
 		if (sec >= 60)
@@ -74,12 +100,14 @@ int thandler()
 				hr++;			
 			}
 		}
-		/*if(totaltime % 5 == 0) // switch process
-		{
-			
-		}*/
-
+		
 		timeStamp(sec, min, hr);
   }
   out_byte(0x20, 0x20);                // tell 8259 PIC EOI
+	/*if(running->runtime == 0) // switch process
+	{
+	   running->runtime = 5;
+		tswitch();	
+	}*/
+
 }

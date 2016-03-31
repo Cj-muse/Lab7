@@ -51,9 +51,11 @@ int kcinth()
    case 34 : r = pfd();             break;
 
 	///for tick 
-	case 35 : r = getTime(); break;
+	case 35 : r = getTime();         break;
+	case 36 : r = setSleepTime(b);   break;
+	case 37 : r = ksleep(b);         break;
 
-       case 90: r =  getc();          break;
+       case 90: r =  getc();        break;
        case 91: color=running->pid+11;
                 r =  putc(b);         break;
        case 99: do_exit(b);           break;

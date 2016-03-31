@@ -15,14 +15,7 @@ main()
        printf("I am proc %din U mode: segment=%x\n", pid, segment);
 	
 			//delay loop
-			while(1)
-			{
-				//if(getTime)//proc.time ==0
-				//{
-					//reset time
-					//switch procs
-				//}			
-			}
+			//while(1)	{}
 
 		 show_menu();
        printf("Command ? ");

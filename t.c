@@ -88,6 +88,21 @@ int set_vector(u16 vector , u16 handler)
    put_word(0x1000,  0,(vector<<2) + 2);
 }
 
+int setRuntime()
+{
+   int i = 0;
+   PROC *p;
+   
+   for (i = 0; i < NPROC; i++)
+   {
+      p = &proc[i];
+      if(p->status == READY)
+      {
+         p->runtime = 5;
+      }
+   }
+}
+
 main()
 {
     printf("MTX starts in main()\n\r");
@@ -96,10 +111,11 @@ main()
 	
 
     kfork("/bin/u1");     // P0 kfork() P1
-	//kfork("/bin/u1");     // P0 kfork() P2
-	//kfork("/bin/u1");     // P0 kfork() P3
-	//kfork("/bin/u1");     // P0 kfork() P4	
+	kfork("/bin/u1");     // P0 kfork() P2
+	kfork("/bin/u1");     // P0 kfork() P3
+	kfork("/bin/u1");     // P0 kfork() P4	
 	//lock();
+	setRuntime();
 	set_vector(8, tinth); // install address of tinth() to vector 8 
 	timer_init();
 	vid_init();

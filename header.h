@@ -200,6 +200,8 @@ typedef struct proc{
     struct proc *parent;
     int    priority;
     int    event;
+	 int    sleeptime;
+	 int    runtime;
     int    exitCode;
     char   name[32];           // name string of PROC
 
