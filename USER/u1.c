@@ -13,6 +13,17 @@ main()
        segment = (pid+1)*0x1000;
        printf("==============================================\n");
        printf("I am proc %din U mode: segment=%x\n", pid, segment);
+	
+			//delay loop
+			while(1)
+			{
+				//if(getTime)//proc.time ==0
+				//{
+					//reset time
+					//switch procs
+				//}			
+			}
+
 		 show_menu();
        printf("Command ? ");
        gets(name);
@@ -38,7 +49,8 @@ main()
        case 12: write_pipe(); break;
        case 13: close_pipe(); break;
 		
-	   case 14: putc(); break;
+		case 14: sleep(); break;
+	   case 15: putc(); break;
 
            default: invalid(name); break;
        }

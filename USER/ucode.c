@@ -1,13 +1,13 @@
 // ucode.c file
 char *cmd[]={"getpid", "ps", "chname", "kmode", "switch", "wait", "exit", 
-	"fork", "exec", "pipe", "pfd", "read", "write", "close", "putc", 0};
+	"fork", "exec", "pipe", "pfd", "read", "write", "close", "sleep", 0};
 
 int show_menu()
 {
    printf("******************** Menu ***************************\n");
    printf("*  ps  chname  kmode  switch  wait  exit  fork  exec *\n");
           //   1     2      3       4      5     6    7     8
-   printf("*  pipe  pfd   read   write   close   putc           *\n");
+   printf("*  pipe  pfd   read   write   close   sleep           *\n");
 	  	  //   9     10    11      12     13      14
    printf("*****************************************************\n");
 }
@@ -30,6 +30,23 @@ int putc(char c)
 	//char c;
 	//printf("enter a character\n");
 	syscall(91,c,0,0);
+}
+
+int sleep()
+{
+	char s[32];
+	int t, totaltime;
+	
+	printf("enter number of seconds to sleep: ");
+	gets(s);
+	sscanf(s, "%d", &t);
+	printf("going to sleep for %d seconds\n", t);
+	printf("Sleep in Ucode not implemented\n");
+	//get current time and add t to it
+	//totaltime = syscall(34,0,0,0);
+	
+	//call kernal funtion here
+	//ksleep(totaltime + t);
 }
 
 int getpid()

@@ -115,7 +115,7 @@ int scroll()
   offset = org + 2*24*80;   // offset = beginning of row 24
 
   // copy a line of BLANKs to row 24
-
+	
   w = 0x0C00;  // HRGB=1100 ==> HighLight RED, Null char
 
   for (i=0; i<80; i++)                  
@@ -123,6 +123,19 @@ int scroll()
 
   set_VDC(VID_ORG, org >> 1);	  /// 6845 thinks in words 
 
+}
+
+int timeStamp(int sec, int minute, int hour)
+{
+	int savedRow = row, savedColumn = column;
+	
+	row = 0;
+	column = 65;
+
+	printf("%d:%d:%d", sec, minute, hour);
+
+	row = savedRow;
+	column = savedColumn;
 }
 
 

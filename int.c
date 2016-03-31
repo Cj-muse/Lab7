@@ -19,6 +19,7 @@ int kcinth()
    u16    segment, offset;
    int    a,b,c,d, r;
 
+	running->inkmode = 1; //for interupts 
    segment = running->uss;
    offset = running->usp;
 
@@ -48,7 +49,9 @@ int kcinth()
    case 32 : r = write_pipe(b,c,d); break;
    case 33 : r = close_pipe(b);     break;
    case 34 : r = pfd();             break;
-  /**************** end of pipe functions ***********/
+
+	///for tick 
+	case 35 : r = getTime(); break;
 
        case 90: r =  getc();          break;
        case 91: color=running->pid+11;
@@ -59,4 +62,5 @@ int kcinth()
    //printf("interupthandler r = %d\n", r);
    //getc();
    put_word(r, segment, offset + 2*AX);
+	running->inkmode = 0; //for interupts 
 }

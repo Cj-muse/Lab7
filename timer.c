@@ -13,8 +13,16 @@
 #define INT_CNTL     0x20       /* 8259 interrupt control register */       
 #define INT_MASK     0x21       /* bit i = 0 means enable interrupt i */ 
 
-int tick,sec,min,hr;                    /* Wall clock */
+int tick,sec,min,hr, totalTime;                    /* Wall clock */
 
+typedef struct tq{
+	struct tq *next;      // next element pointer
+	int       time;       // requested time
+	struct PROC *proc;    // pointer to PROC
+	int    (*action)();   // 0|1|handler function pointer
+}TQE;
+
+TQE tq, tqe[NPROC];           // tq = timer queue pointer
 
 int enable_irq(irq_nr) u8 irq_nr;
 {
@@ -33,6 +41,11 @@ int timer_init()
   enable_irq(TIMER_IRQ);                /* enable timer interrupts */
 }
 
+int getTime()
+{
+	return totalTime;
+}
+
 /*===================================================================*
  *		    timer interrupt handler       		     *
  *===================================================================*/
@@ -40,10 +53,33 @@ int thandler()
 {
   tick++; 
   tick %= 60;
+  //tick %= 10;
+  //tick %= 1;
+	
   if (tick == 0){                      // at each second
-      printf("1 second timer interrupt in ");
-      running->inkmode > 1 ? putc('K') : putc('U');
-      printf("mode\n");
+      //printf("1 second timer interrupt in ");
+      //running->inkmode > 1 ? putc('K') : putc('U');
+      //printf("mode\n");
+		
+	
+		totalTime++;
+		sec++;
+		if (sec >= 60)
+		{
+			sec = 0;
+			min++;
+			if (min >= 60)
+			{
+				min = 0;
+				hr++;			
+			}
+		}
+		/*if(totaltime % 5 == 0) // switch process
+		{
+			
+		}*/
+
+		timeStamp(sec, min, hr);
   }
   out_byte(0x20, 0x20);                // tell 8259 PIC EOI
 }
